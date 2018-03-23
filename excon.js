@@ -17,6 +17,7 @@ class Excon {
         }
 
         this.queue = []
+        this.prevQueue = [];
 
         this.fontSize = '16px';
         this.padding = '20px 5px';
@@ -40,6 +41,7 @@ class Excon {
         
         console.log = (message) => {
             this.queue.push({message:message,type:"log"})
+            
             this.displayQueue();
         }
         
@@ -48,33 +50,49 @@ class Excon {
             this.displayQueue();
         }
         
+
+        // this.displayQueue()
     
 
     }
 
     displayQueue(){
-        // this.log(this.queue)
+        this.log(this.queue)
+        console.clear();
         for(let i = 0;i<this.queue.length;i++){
             // this.error(this.queue[i].type)
-            if(this.queue[i].type === "warn"){
+            if(this.queue[i].type === "warn" && !this.queue[i].rendered){
+     
                 this.warn(this.queue[i].message)
+                
                 continue;
             }
+            
+            if(this.queue[i].type === "error" && !this.queue[i].rendered){
 
-            if(this.queue[i].type === "error"){
                 this.error(this.queue[i].message);
+                
+                continue;
+            }
+            
+            if(this.queue[i].type === "log" && !this.queue[i].rendered){
+                // this.log(this.queue[i].type)
+                this.log(this.queue[i].message)
+               
                 continue;
             }
 
-            if(this.queue[i].type === "log"){
-                this.log(this.queue[i].message)
-            }
-            else{
-            this.log(this.queue[i].message,this.queue[i].style)
+            if(!this.queue[i].rendered){
+           
+                if(this.usage[this.queue[i].type].visible){
+                this.log(this.queue[i].message,this.queue[i].style)
+                }
+                
             }
         }
 
-        this.queue = [];
+        // this.log(this.queue)
+
     }
 
 
