@@ -19,12 +19,13 @@ class Excon{
 
         this.queue = [];
         this.prevQueue = [];
+        this.hiddenLogs = 0;
 
         this.fontSize = '14px';
         this.padding = '10px 5px';
         this.fontColor = 'white';
         this.display = 'block'
-        this.setStyle = `font-size:${this.fontSize};padding:${this.padding};color:${this.fontColor};display:inline-block;`;
+        this.setStyle = `font-size:${this.fontSize};padding:${this.padding};color:${this.fontColor};display:inline-block;border-radius:2px;`;
         
         navigator.userAgent.includes("Chrome") ? this.userAgent = "Chrome" : '';
         navigator.userAgent.includes("Firefox") ? this.userAgent = "Firefox" : '';
@@ -33,6 +34,13 @@ class Excon{
 
     displayQueue(){
         for(let i = 0;i<this.queue.length;i++){
+            let styleMarker = this.queue[i].style;
+            
+            try{
+                if(this.usage[styleMarker].visible === false){continue;}
+            }
+            catch(error){}
+            
             let style = this.setStyle + `background-color:${this.queue[i].style}`
 
             if(this.queue[i].type === "groupEnd"){
@@ -124,6 +132,8 @@ class Excon{
                     this.queue.push({message:arr[i].key,type:"groupCollapsed",style:style})
 
                     this.rebuildObj(arr[i].val,style)
+
+                    // this.queue.push({type:"groupEnd"})
                 }
             }
             else{
@@ -155,7 +165,7 @@ class Excon{
         }
 
         if(count === 0){
-            this.queue.push({message:obj.message,type:"table"})
+            this.queue.push({message:obj.message,type:"table",style:style})
         }
         else{
             
@@ -178,24 +188,44 @@ class Excon{
             }
         }
 
-        //If the first type is a string set the groupCollpased message to that string.
-        //If it isn't a string set the groupCollpased to just "Object"
+        if(setter.length < 3){
         if(setter[0].type === "string"){
+
             this.queue.push({message:setter[0].message,style:style,type:"groupCollapsed"})
 
             this.prevQueue.push({message:setter[0].message,style:style,type:"groupCollapsed"})
         }
         else{
-            this.queue.push({message:"Object",style:style,type:"groupCollapsed"})
+            this.queue.push({message:"[Object]",style:style,type:"groupCollapsed"})
 
-            this.prevQueue.push({message:"Object",style:style,type:"groupCollapsed"})
+            this.prevQueue.push({message:"[Object]",style:style,type:"groupCollapsed"})
             
         }
+    }
 
+        
         //Get all the objects in the array and parse them.
         let obj = setter.filter(e=>e.type === "object" ? true: false)
-
+        
         for(let i = 0;i<setter.length;i++){
+            //If the first type is a string set the groupCollpased message to that string.
+            //If it isn't a string set the groupCollpased to just "Object"
+                
+                if(setter.length > 2){
+                    if(setter[0].type === "string"){
+
+                        this.queue.push({message:setter[0].message,style:style,type:"groupCollapsed"})
+            
+                        this.prevQueue.push({message:setter[0].message,style:style,type:"groupCollapsed"})
+                    }
+                    else{
+                        this.queue.push({message:"[Object]",style:style,type:"groupCollapsed"})
+            
+                        this.prevQueue.push({message:"[Object]",style:style,type:"groupCollapsed"})
+                        
+                    }
+            }
+            
             if(setter[i].type === "object"){
                 this.parseObj(setter[i],style);
             }
@@ -203,12 +233,30 @@ class Excon{
 
         this.queue.push({type:"groupEnd"})
         this.prevQueue.push({type:"groupEnd"})
+
+    }
+
+    hide(){
+        let hiders = Array.from(arguments);
+
+        for(let i = 0;i<hiders.length;i++){
+            this.usage[hiders[i]].visible = false;
+        }
+
+        setTimeout(()=>{console.log(`there are ${this.hiddenLogs} hidden excon logs`)},1000)
+
     }
 
     red(){
+        if(this.usage.red.visible){
         let message = Array.from(arguments)
         // console.log(arguments)
         message = this.defineMessage(message,"red")
+        }
+        else{
+            this.hiddenLogs++
+            
+        }
     }
 }
 
