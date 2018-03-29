@@ -2,27 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="excon.js" type="text/javascript">
-        excon.red("hi")
+    <script src="./excon.js" type="text/javascript">
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
-        <script>
-            let excon = new Excon(true);
-        // excon.hide('red','blue')
-            console.groupCollapsed("%chi",'font-size:20px;background-color:red')
-            excon.red("hi");
-            excon.blue("hi");
-            excon.green("hi");
-            excon.teal("hi");
-            excon.black("hi");
-            console.groupEnd();
-            
-        </script>
 </body>
+
+<script>
+    let obj = {type:"Fiat", model:"500", color:"white",cool:false,rad:null,type:''}
+        excon.hide("blue","pink")
+        excon.red("hi")
+        excon.blue("hi2","hi2");
+        excon.pink('tableExample',{message:2,hi:7})
+        excon.purple("Object example",obj)
+        excon.orange("[Objects without a string in the first position will display as [Object] as their group name]")
+    excon.grey(obj)
+    excon.green("wow",obj,obj)
+    excon.navy("Array Example",[1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,])
+    excon.fuchsia("Multi-Nested Object Example"
+    ,{hi:{fj:4,ds:32,dsw:{hi:{fj:4,ds:32,dsw:"do"}}},wow:"it works"})
+    excon.aqua("hi")
+    excon.navy("hi")
+</script>
 
 </html>
  
